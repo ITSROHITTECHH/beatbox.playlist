@@ -27,10 +27,19 @@ class Playlist:
         return self.songs[index]
     
     def __str__(self):
-       Playlist_info += f"Playlist: {self.name} ({len(self)} songs)\n"
+        # Nicely formatted string when printing a Playlist
+        playlist_info = f"Playlist: {self.name} ({len(self)} songs)\n"
         for i, song in enumerate(self.songs, start=1):
             playlist_info += f"{i}. {song}\n"
-        return playlist_info 
+        return playlist_info
+    
+    def __add__(self, other):
+        # Combine two playlists using the + operator
+        combined = Playlist(f"{self.name} + {other.name}")
+        combined.songs = self.songs + other.songs
+        return combined
+
+
 
 
     
