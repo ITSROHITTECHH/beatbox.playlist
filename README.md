@@ -39,10 +39,14 @@ print(len(pop_hits))       # __len__ in action
 print(pop_hits[0])         # __getitem__ in action
 
 
-## 👨‍💻 Author
 
-**Rohit Kumar Srivastava**  
-🎓 BCA Student | 💻 Developer & Designer | 🧠 Python Learner  
-🔗 [LinkedIn](https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)  
-📬 *Feel free to connect and collaborate!*
+
+# ===========================================
+# 👨‍💻 Author: Rohit Kumar Srivastava
+# ===========================================
+# 🎓 BCA Student | 💻 Developer & Designer | 🧠 Python Learner
+# 🔗 LinkedIn: https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+# 📬 Feel free to connect and collaborate!
+# ===========================================
+
 
