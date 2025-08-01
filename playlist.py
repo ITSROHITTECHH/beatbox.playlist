@@ -27,10 +27,10 @@ class Playlist:
         return self.songs[index]
     
     def __str__(self):
-        Playlist_info += f"Playlist: {self.name} ({len(self)} songs)\n"
+       Playlist_info += f"Playlist: {self.name} ({len(self)} songs)\n"
         for i, song in enumerate(self.songs, start=1):
             playlist_info += f"{i}. {song}\n"
-        return playlist_info
+        return playlist_info 
 
 
     
