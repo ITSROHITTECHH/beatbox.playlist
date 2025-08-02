@@ -71,7 +71,7 @@ This project is designed to replicate basic features of a playlist application u
 ## 🧾 Code Example
 
 ```python
-song1 = Song("Blinding Lights", "The Weeknd", 200)
+song1 = Song("angreji beat", "yoyo honey singh", 200)
 pop_hits = Playlist("Pop Hits")
 pop_hits.add_song(song1)
 
