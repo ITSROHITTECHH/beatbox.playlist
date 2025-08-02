@@ -3,6 +3,11 @@
 A beginner-friendly Python project demonstrating core Object-Oriented Programming (OOP) concepts using a custom **Song** and **Playlist** class. This project showcases the power of Python's *dunder methods* (`__init__`, `__str__`, `__len__`, `__getitem__`, `__add__`) to create a flexible and intuitive playlist system.
 
 ---
+## 🎵 Songs Folder
+
+All song data used in this project is stored in the `songs` {} `beats_archive.json` directory for better organization and scalability.
+
+---
 
 ## 📌 Features
 
@@ -13,6 +18,24 @@ A beginner-friendly Python project demonstrating core Object-Oriented Programmin
 - 🔍 Access songs via index like a list
 - 🖨️ Display formatted playlist info
 
+---
+## 📌 Overview
+
+This project is designed to replicate basic features of a playlist application using Python classes. It's perfect for students or learners who are exploring Python OOP concepts such as:
+
+- Class design
+- Constructor methods
+- Dunder methods like `__str__`, `__len__`, `__getitem__`, and `__add__`
+- Data abstraction and encapsulation
+
+---
+
+## 🧠 What You Will Learn
+
+- How to create and use custom Python classes
+- How to manage lists of objects
+- How to implement and override built-in Python methods
+- How to structure a basic Python application
 ---
 
 ## 💡 Key Concepts Demonstrated
@@ -25,15 +48,23 @@ A beginner-friendly Python project demonstrating core Object-Oriented Programmin
 | `__getitem__` | Enables indexing, e.g. `playlist[0]`                        |
 | `__add__`     | Allows combining playlists using `playlist1 + playlist2`   |
 
+---
 
+# screenshot of terminal output
+
+![Terminal Output](terminal-output.png)
+
+---
 
 # 👨‍💻 Author: Rohit Kumar Srivastava
+---
 
 🎓 BCA Student | 💻 turning errors into experience ..... | 🧠 Python Learner
 
 🔗 LinkedIn: https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
 
-📬 Feel free to connect and collaborate!
+📬 Feel free to connect !
+
 
 ---
 
