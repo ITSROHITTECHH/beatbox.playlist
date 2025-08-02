@@ -25,6 +25,16 @@ A beginner-friendly Python project demonstrating core Object-Oriented Programmin
 | `__getitem__` | Enables indexing, e.g. `playlist[0]`                        |
 | `__add__`     | Allows combining playlists using `playlist1 + playlist2`   |
 
+
+
+# 👨‍💻 Author: Rohit Kumar Srivastava
+
+🎓 BCA Student | 💻 turning errors into experience ..... | 🧠 Python Learner
+
+🔗 LinkedIn: https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+
+📬 Feel free to connect and collaborate!
+
 ---
 
 ## 🧾 Code Example
@@ -41,12 +51,6 @@ print(pop_hits[0])         # __getitem__ in action
 
 
 
-# ===========================================
-# 👨‍💻 Author: Rohit Kumar Srivastava
-# ===========================================
-# 🎓 BCA Student | 💻 Developer & Designer | 🧠 Python Learner
-# 🔗 LinkedIn: https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
-# 📬 Feel free to connect and collaborate!
-# ===========================================
+
 
 
