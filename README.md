@@ -47,13 +47,7 @@ Originally a small OOP playlist project — now a **full YouTube-powered music p
 ### 📁 **Default Playlist Loader**
 Loads your JSON playlist instantly for testing.
 
----
 
-## 📸 Screenshots Preview
-
-### 🎼 Default Playlist
-
-(beatbox.playlist/default-playlist.png)
 
 
 ---
