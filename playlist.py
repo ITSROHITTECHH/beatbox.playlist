@@ -77,20 +77,24 @@ default_songs = [
 
 
 
-
-
-
-
-
 # --------------------------------------------
 # Helpers
 # --------------------------------------------
 def is_youtube_url(s: str) -> bool:
+    """
+    Quick heuristic to check whether the provided string looks like a YouTube URL.
+    Returns False for empty strings.
+    """
     if not s:
         return False
     return bool(re.search(r"(youtube\.com/watch\?v=|youtu\.be/)", s))
 
+
 def safe_fetch_thumbnail(url, max_size=(240, 140)):
+    """
+    Download a remote thumbnail image and return an ImageTk.PhotoImage suitable for Tkinter.
+    Returns None on any failure (timeout, invalid image, etc).
+    """
     try:
         r = requests.get(url, timeout=6)
         r.raise_for_status()
@@ -100,10 +104,15 @@ def safe_fetch_thumbnail(url, max_size=(240, 140)):
     except Exception:
         return None
 
+
 # --------------------------------------------
 # YouTube search (uses yt-dlp)
 # --------------------------------------------
 def youtube_search(query: str):
+    """
+    Use yt-dlp to perform a YouTube search (ytsearch10) and return a list of
+    lightweight result dictionaries with keys: title, url, thumb, channel.
+    """
     ydl_opts = {
         "quiet": True,
         "no_warnings": True,
@@ -127,17 +136,23 @@ def youtube_search(query: str):
         })
     return results
 
+
 # --------------------------------------------
 # Main App
 # --------------------------------------------
 class BeatboxPurple:
+    """
+    Main application class that builds the Tkinter UI, handles searches and playback.
+    The app uses yt-dlp to get a playable audio stream URL, then hands that stream
+    to python-vlc for audio playback.
+    """
     def __init__(self, root):
         self.root = root
         self.root.title("Beatbox.playlist")
         self.root.geometry("980x640")
         self.root.minsize(860, 540)
 
-        # prefer audio-only VLC
+        # Try to use VLC in audio-only mode; fallback to default instance if unavailable.
         try:
             self.vlc_inst = vlc.Instance("--no-video")
         except Exception:
@@ -147,45 +162,53 @@ class BeatboxPurple:
         self.search_results = []
         self.thumb_cache = {}
 
-        # background image resources
-        self._bg_orig = None   # PIL Image
-        self._bg_photo = None  # ImageTk.PhotoImage
+        # Background image resources
+        self._bg_orig = None   # PIL Image (original)
+        self._bg_photo = None  # ImageTk.PhotoImage (Tkinter-ready)
 
-        # create background canvas first so it's behind other widgets
+        # Create a canvas to draw the background _behind_ other widgets
         self._create_background_canvas()
 
-        # build UI on top
+        # Build UI on top of the background
         self._build_ui()
         self._apply_theme()
 
-        # update bg after UI is placed
+        # Attempt to load the configured background (won't crash the app if missing)
         self._load_background_image(DEFAULT_BG)
 
-        # handle resizing so background scales
+        # Keep background sized to window
         self.root.bind("<Configure>", self._on_root_configure)
 
-        # cleanup
+        # Graceful cleanup on window close
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
     # -------------------------
     # Background: canvas, loader, resize handler
     # -------------------------
     def _create_background_canvas(self):
-        # use place so other widgets (packed/placed) appear above
+        # Using place() keeps the canvas full window and allows other widgets to be packed on top.
         self.canvas_bg = tk.Canvas(self.root, highlightthickness=0, bd=0)
         self.canvas_bg.place(x=0, y=0, relwidth=1, relheight=1)
 
     def _load_background_image(self, path):
+        """
+        Load the background image from `path`. If the file doesn't exist or fails to open,
+        the function prints an error and leaves the canvas empty.
+        """
         try:
             if not path or not os.path.exists(path):
                 raise FileNotFoundError(path)
             self._bg_orig = Image.open(path).convert("RGBA")
             self._resize_bg_to_root()
         except Exception as e:
+            # We print instead of raising so the GUI still opens even without a background.
             print("Background load failed:", e)
-            # leave canvas empty on error
 
     def _resize_bg_to_root(self):
+        """
+        Resize the loaded background to the current window size and redraw it on the canvas.
+        Called after initial load and whenever the window resizes.
+        """
         try:
             if self._bg_orig is None:
                 return
@@ -193,24 +216,23 @@ class BeatboxPurple:
             h = max(1, self.root.winfo_height())
             resized = self._bg_orig.resize((w, h), Image.LANCZOS)
             self._bg_photo = ImageTk.PhotoImage(resized)
-            # remove any previous bg image by tag and add new
+            # Replace previous image (if any) with the new one
             self.canvas_bg.delete("bg_image")
             self.canvas_bg.create_image(0, 0, image=self._bg_photo, anchor="nw", tags=("bg_image",))
-            # ensure the bg image is at the bottom of the canvas's stacking order
+            # Ensure the background image is below everything else on the canvas.
             self.canvas_bg.tag_lower("bg_image")
         except Exception as e:
             print("Failed resizing background:", e)
 
     def _on_root_configure(self, event):
-        # skip if geometry not initialized
-        # resize background when window size changes
+        # Window size or position changed — refresh background size.
         self._resize_bg_to_root()
 
     # -------------------------
     # UI
     # -------------------------
     def _build_ui(self):
-        # top area (search)
+        # Top search area (placed so it sits above the background canvas)
         top = tk.Frame(self.root, bg=BG, pady=8)
         top.place(relx=0, rely=0, relwidth=1, height=48)
 
@@ -228,11 +250,11 @@ class BeatboxPurple:
         self.status_label = tk.Label(top, text="", bg=BG, fg=SUB)
         self.status_label.pack(side=tk.RIGHT, padx=(0, 12))
 
-        # middle body
+        # Middle body area (results + now playing)
         middle = tk.Frame(self.root, bg=BG)
         middle.place(relx=0, rely=0.07, relwidth=1, relheight=0.78)
 
-        # left (results)
+        # Left: search results list
         left = tk.Frame(middle, bg=BG)
         left.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
@@ -244,9 +266,10 @@ class BeatboxPurple:
             selectbackground=ACCENT, activestyle="none"
         )
         self.results_listbox.pack(fill=tk.BOTH, expand=True, padx=4, pady=4)
+        # Double click to play
         self.results_listbox.bind("<Double-1>", lambda e: self._on_result_double())
 
-        # right (now playing)
+        # Right: now playing panel (title, channel, thumbnail)
         right = tk.Frame(middle, bg=BG, width=340)
         right.pack(side=tk.RIGHT, fill=tk.Y)
 
@@ -264,7 +287,7 @@ class BeatboxPurple:
         self.thumb_label = tk.Label(right, bg=PANEL)
         self.thumb_label.pack(padx=6, pady=8)
 
-        # bottom controls
+        # Bottom controls (play/pause/resume/stop + volume)
         bottom = tk.Frame(self.root, bg=BG, pady=8)
         bottom.place(relx=0, rely=0.88, relwidth=1, height=64)
 
@@ -284,6 +307,10 @@ class BeatboxPurple:
 
     # -------------------------
     def _apply_theme(self):
+        """
+        Tweak ttk button appearance. This is a lightweight theme setting,
+        not an exhaustive styling.
+        """
         style = ttk.Style()
         try:
             style.theme_use("clam")
@@ -295,6 +322,10 @@ class BeatboxPurple:
 
     # -------------------------
     def load_default_playlist(self):
+        """
+        Populate the results listbox with the built-in default_songs playlist.
+        Keeps search_results in sync so double-click/play works immediately.
+        """
         self.search_results = default_songs.copy()
         self.results_listbox.delete(0, tk.END)
         for s in self.search_results:
@@ -303,16 +334,24 @@ class BeatboxPurple:
 
     # -------------------------
     def _start_search_or_url(self):
+        """
+        Entry point when user presses the Search button or hits Enter.
+        If the string looks like a YouTube URL we play it directly; otherwise we run a search.
+        """
         q = self.search_var.get().strip()
         if not q:
             return
         if is_youtube_url(q):
+            # Play in a background thread so the GUI remains responsive.
             threading.Thread(target=self._play_by_url, args=(q, None), daemon=True).start()
             return
         self.status_label.config(text="Searching...")
         threading.Thread(target=self._do_search, args=(q,), daemon=True).start()
 
     def _do_search(self, q):
+        """
+        Perform youtube_search in a background thread, then update the UI on the main thread.
+        """
         try:
             results = youtube_search(q) or []
         except Exception:
@@ -330,6 +369,9 @@ class BeatboxPurple:
 
     # -------------------------
     def _on_result_double(self):
+        """
+        Called when a result is double-clicked. Plays the selected song in a background thread.
+        """
         sel = self.results_listbox.curselection()
         if not sel:
             return
@@ -338,10 +380,18 @@ class BeatboxPurple:
         threading.Thread(target=self._play_by_url, args=(song.get("url"), song), daemon=True).start()
 
     def play_selected(self):
+        """Convenience wrapper to play the currently selected result."""
         self._on_result_double()
 
     # -------------------------
     def _play_by_url(self, url, data=None):
+        """
+        Core playback routine:
+         - uses yt-dlp to extract a playable audio stream (bestaudio)
+         - picks an audio-capable format if direct 'url' isn't returned
+         - hands the final stream URL to VLC to play
+         - updates the UI (title, channel, thumbnail) on the main thread
+        """
         try:
             if not url:
                 raise RuntimeError("No URL provided to play.")
@@ -361,7 +411,7 @@ class BeatboxPurple:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
 
-            # find stream url
+            # Some yt-dlp extracts expose a direct 'url' for streaming; otherwise inspect formats.
             stream = info.get("url")
             if not stream:
                 for f in reversed(info.get("formats") or []):
@@ -372,16 +422,19 @@ class BeatboxPurple:
             if not stream:
                 raise RuntimeError("Could not obtain a direct stream URL from yt-dlp.")
 
+            # Set up VLC to play the remote stream
             media = self.vlc_inst.media_new(stream)
             self.player = self.vlc_inst.media_player_new()
             self.player.set_media(media)
             self.player.play()
 
+            # apply UI volume to the player
             try:
                 self.player.audio_set_volume(int(self.volume.get()))
             except Exception:
                 pass
 
+            # Update now-playing info on main thread
             def ui_update():
                 try:
                     title = info.get("title") or (data.get("title") if data else "Unknown")
@@ -389,6 +442,7 @@ class BeatboxPurple:
                     self.now_title.config(text=title)
                     self.now_sub.config(text=channel or "")
 
+                    # Fetch and set thumbnail (cached to avoid repeated downloads)
                     vid = info.get("id")
                     if vid:
                         thumb = f"https://img.youtube.com/vi/{vid}/hqdefault.jpg"
@@ -406,10 +460,12 @@ class BeatboxPurple:
             self.root.after(0, ui_update)
 
         except Exception as e:
+            # Show user-facing error dialog on the main thread.
             self.root.after(0, lambda: messagebox.showerror("Error", f"Failed to play video.\n{e}"))
 
     # -------------------------
     def pause(self):
+        """Pause playback (VLC toggle)."""
         if self.player:
             try:
                 self.player.pause()
@@ -417,6 +473,7 @@ class BeatboxPurple:
                 pass
 
     def resume(self):
+        """Resume playback — using play() for robust resume behavior."""
         if self.player:
             try:
                 self.player.play()
@@ -424,6 +481,7 @@ class BeatboxPurple:
                 pass
 
     def stop(self):
+        """Stop playback and keep the player object available."""
         if self.player:
             try:
                 self.player.stop()
@@ -431,6 +489,7 @@ class BeatboxPurple:
                 pass
 
     def _set_volume(self, v):
+        """Volume slider callback. Accepts a numeric value (string from Tkinter Scale)."""
         if self.player:
             try:
                 self.player.audio_set_volume(int(v))
@@ -438,6 +497,7 @@ class BeatboxPurple:
                 pass
 
     def on_close(self):
+        """Called when the window is closed — stop playback and destroy the window."""
         try:
             if self.player:
                 self.player.stop()
@@ -448,6 +508,9 @@ class BeatboxPurple:
         except Exception:
             pass
 
+
+# --------------------------------------------
+# Entrypoint
 # --------------------------------------------
 if __name__ == "__main__":
     root = tk.Tk()

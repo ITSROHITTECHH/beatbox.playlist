@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/mnt/data/ChatGPT Image Nov 24, 2025, 07_20_45 PM.png" alt="Beatbox Banner" width="100%">
+  <img src="/mnt/data/banner.png" alt="Beatbox Banner" width="100%">
 </p>
 
 # 🎧 Beatbox — YouTube Music Player (Python + Tkinter + VLC + yt-dlp)
@@ -52,7 +52,8 @@ Loads your built-in playlist JSON to instantly test the UI.
 
 ### 🎼 Default Playlist  
 
-![Default Playlist](beatbox.playlist/default-playlist.png)
+![Beatbox Banner](beatbox.playlist/default-playlist.png)
+![alt text](<ChatGPT Image Nov 24, 2025, 07_20_45 PM.png>)
 
 
 ---
