@@ -1,81 +1,116 @@
-# 🎧 Python beatbox Playlist Manager
+<p align="center">
+  <img src="/mnt/data/ChatGPT Image Nov 24, 2025, 07_20_45 PM.png" alt="Beatbox Banner" width="100%">
+</p>
 
-A beginner-friendly Python project demonstrating core Object-Oriented Programming (OOP) concepts using a custom **Song** and **Playlist** class. This project showcases the power of Python's *dunder methods* (`__init__`, `__str__`, `__len__`, `__getitem__`, `__add__`) to create a flexible and intuitive playlist system.
+# 🎧 Beatbox — YouTube Music Player (Python + Tkinter + VLC + yt-dlp)
 
----
-## 🎵 Songs Folder
+Beatbox is a modern **desktop music player app** built in Python that lets you:
 
-All song data used in this project is stored in the `songs` {} `beats_archive.json` directory for better organization and scalability.
+- 🔍 Search YouTube  
+- 🎵 Stream audio-only playback (no video)  
+- 📻 Load a default playlist  
+- 🎚️ Control playback (Play / Pause / Resume / Stop)  
+- 🔊 Adjust volume  
+- 🖼️ View track thumbnails  
+- 🎨 Enjoy a smooth purple-themed UI with a dynamic background  
 
----
-
-## 📌 Features
-
-- 🎵 Create songs with title, artist, and duration
-- 📂 Build playlists and add songs easily
-- ➕ Combine playlists using the `+` operator
-- 🔢 Get total songs using `len()`
-- 🔍 Access songs via index like a list
-- 🖨️ Display formatted playlist info
-
----
-## 📌 Overview
-
-This project is designed to replicate basic features of a playlist application using Python classes. It's perfect for students or learners who are exploring Python OOP concepts such as:
-
-- Class design
-- Constructor methods
-- Dunder methods like `__str__`, `__len__`, `__getitem__`, and `__add__`
-- Data abstraction and encapsulation
+This project evolved from a simple playlist OOP project into a **full music player app**.
 
 ---
 
-## 🧠 What You Will Learn
+## 🚀 Features
 
-- How to create and use custom Python classes
-- How to manage lists of objects
-- How to implement and override built-in Python methods
-- How to structure a basic Python application
+### 🔍 **YouTube Search**
+- Search any song directly using YouTube keywords  
+- Uses `yt-dlp` to fetch metadata  
+- Extracts thumbnails & channel details  
+- Handles both URLs + search terms
+
+### 🎧 **Music Playback Engine**
+- Built using **VLC Python bindings**  
+- Audio-only playback → lightweight & faster  
+- Supports Play / Pause / Resume / Stop  
+- Auto-updates currently playing song info
+
+### 🎨 **Purple Modern UI**
+- Built with Tkinter  
+- Resizable layout  
+- Dynamic background scaling  
+- Modern purple theme  
+- Separate panels:
+  - **Search Bar**
+  - **Results List**
+  - **Now Playing Panel**
+  - **Playback Controls**
+
+### 📁 **Default Playlist Loader**
+Loads your built-in playlist JSON to instantly test the UI.
+
 ---
 
-## 💡 Key Concepts Demonstrated
+## 📸 Screenshots Preview
 
-| Method        | Description                                                |
-|---------------|------------------------------------------------------------|
-| `__init__`    | Initializes Song and Playlist objects                      |
-| `__str__`     | Custom string representation for songs and playlists       |
-| `__len__`     | Enables use of `len()` on playlists                        |
-| `__getitem__` | Enables indexing, e.g. `playlist[0]`                        |
-| `__add__`     | Allows combining playlists using `playlist1 + playlist2`   |
+### 🎼 Default Playlist  
 
----
-
-# screenshot of terminal output
-
-![Terminal Output](default-playlist.png)
-
----
-
-# 👨‍💻 Author: Rohit Kumar Srivastava
----
-
-🎓 BCA Student | 💻 turning errors into experience ..... | 🧠 Python Learner
-
-🔗 LinkedIn: https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
-
-📬 Feel free to connect !
+![Default Playlist](beatbox.playlist/default-playlist.png)
 
 
 ---
 
-## 🧾 Code Example
+## 🛠️ Technologies Used
 
-```python
-song1 = Song("angreji beat", "yoyo honey singh", 200)
-pop_hits = Playlist("Pop Hits")
-pop_hits.add_song(song1)
+| Component | Library |
+|----------|----------|
+| GUI | Tkinter |
+| Streaming | VLC Python (`python-vlc`) |
+| YouTube Search | yt-dlp |
+| Image Handling | Pillow (PIL) |
+| HTTP Requests | requests |
 
-print(pop_hits)            # __str__ in action
-print(len(pop_hits))       # __len__ in action
-print(pop_hits[0])         # __getitem__ in action
+---
+
+## 📦 Installation
+
+
+pip install yt-dlp python-vlc pillow requests
+
+---
+
+## 🧾 Sample Code Snippet
+
+ydl_opts = {
+    "quiet": True,
+    "no_warnings": True,
+    "skip_download": True,
+    "extract_flat": True,
+    "default_search": "ytsearch10"
+}
+
+
+---
+
+👨‍💻 Author: Rohit Kumar Shrivastava
+
+BCA Student | Python Developer | UI & Music App Enthusiast
+
+🔗 LinkedIn:
+https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372
+
+🔗 X (Twitter):
+https://x.com/itsrohit_tech?t=8Pzh0VeKL4d_ZVCQQuyODQ&s=09
+
+
+---
+
+### Want me to also generate:
+✅ A cleaner **project description**  
+✅ A **requirements.txt**  
+✅ A **GitHub release summary**  
+✅ A better **repository structure**  
+?
+
+Just dm me on  x , linkdinn , email !
+
+
+
 
