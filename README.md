@@ -1,4 +1,5 @@
 
+
 # 🎧 Beatbox — YouTube Music Player (Python + Tkinter + VLC + yt-dlp)
 
 Beatbox is a modern **desktop music player** built in Python.  
@@ -15,7 +16,6 @@ It lets you:
 Originally a small OOP playlist project — now a **full YouTube-powered music player**.
 
 ---
-
 ## 🚀 Features
 
 ### 🔍 **YouTube Search**
@@ -46,6 +46,11 @@ Originally a small OOP playlist project — now a **full YouTube-powered music p
 
 ### 📁 **Default Playlist Loader**
 Loads your JSON playlist instantly for testing.
+
+
+
+---
+![playlist](../default-playlist.png)
 
 
 
