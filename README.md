@@ -52,7 +52,7 @@ This project is designed to replicate basic features of a playlist application u
 
 # screenshot of terminal output
 
-![Terminal Output](terminal-output.png)
+![Terminal Output](default-playlist.png)
 
 ---
 
@@ -78,10 +78,4 @@ pop_hits.add_song(song1)
 print(pop_hits)            # __str__ in action
 print(len(pop_hits))       # __len__ in action
 print(pop_hits[0])         # __getitem__ in action
-
-
-
-
-
-
 
