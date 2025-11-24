@@ -1,83 +1,85 @@
 <p align="center">
-  <img src="/mnt/data/banner.png" alt="Beatbox Banner" width="100%">
+  <img src="banner.png" alt="Beatbox Banner" width="100%">
 </p>
 
 # 🎧 Beatbox — YouTube Music Player (Python + Tkinter + VLC + yt-dlp)
 
-Beatbox is a modern **desktop music player app** built in Python that lets you:
+Beatbox is a modern **desktop music player** built in Python.  
+It lets you:
 
 - 🔍 Search YouTube  
-- 🎵 Stream audio-only playback (no video)  
-- 📻 Load a default playlist  
-- 🎚️ Control playback (Play / Pause / Resume / Stop)  
+- 🎵 Stream audio-only playback  
+- 📻 Load a built-in playlist  
+- 🎚️ Control playback  
 - 🔊 Adjust volume  
-- 🖼️ View track thumbnails  
-- 🎨 Enjoy a smooth purple-themed UI with a dynamic background  
+- 🖼️ View thumbnails  
+- 🎨 Enjoy a clean purple UI  
 
-This project evolved from a simple playlist OOP project into a **full music player app**.
+Originally a small OOP playlist project — now a **full YouTube-powered music player**.
 
 ---
 
 ## 🚀 Features
 
 ### 🔍 **YouTube Search**
-- Search any song directly using YouTube keywords  
-- Uses `yt-dlp` to fetch metadata  
-- Extracts thumbnails & channel details  
-- Handles both URLs + search terms
+- Search any song using keywords  
+- Uses `yt-dlp` to fetch YouTube metadata  
+- Extracts thumbnails, channels & duration  
+- Supports both direct URLs & search queries  
 
 ### 🎧 **Music Playback Engine**
-- Built using **VLC Python bindings**  
-- Audio-only playback → lightweight & faster  
-- Supports Play / Pause / Resume / Stop  
-- Auto-updates currently playing song info
+- Built with **python-vlc**  
+- Audio-only → faster & smooth  
+- Supports:
+  - ▶️ Play  
+  - ⏸️ Pause  
+  - 🔁 Resume  
+  - ⏹️ Stop  
+- Auto-updates Now Playing info  
 
 ### 🎨 **Purple Modern UI**
-- Built with Tkinter  
-- Resizable layout  
+- Tkinter-based clean layout  
+- Responsive window  
 - Dynamic background scaling  
-- Modern purple theme  
-- Separate panels:
-  - **Search Bar**
-  - **Results List**
-  - **Now Playing Panel**
-  - **Playback Controls**
+- UI Sections:
+  - Search Bar  
+  - Results List  
+  - Now Playing  
+  - Player Controls  
 
 ### 📁 **Default Playlist Loader**
-Loads your built-in playlist JSON to instantly test the UI.
+Loads your JSON playlist instantly for testing.
 
 ---
 
 ## 📸 Screenshots Preview
 
-### 🎼 Default Playlist  
+### 🎼 Default Playlist
+```md
+![Default Playlist Preview](beatbox.playlist/default-playlist.png)
 
-![Beatbox Banner](beatbox.playlist/default-playlist.png)
-![alt text](<ChatGPT Image Nov 24, 2025, 07_20_45 PM.png>)
-
-
----
-
-## 🛠️ Technologies Used
-
-| Component | Library |
-|----------|----------|
-| GUI | Tkinter |
-| Streaming | VLC Python (`python-vlc`) |
-| YouTube Search | yt-dlp |
-| Image Handling | Pillow (PIL) |
-| HTTP Requests | requests |
 
 ---
 
-## 📦 Installation
+🛠️ Technologies Used
 
+Component	Library
+GUI	Tkinter
+Playback	python-vlc
+YouTube Search	yt-dlp
+Images	Pillow (PIL)
+Network Requests	requests
+
+---
+
+📦 Installation
 
 pip install yt-dlp python-vlc pillow requests
 
+
 ---
 
-## 🧾 Sample Code Snippet
+🧾 Sample yt-dlp Options
 
 ydl_opts = {
     "quiet": True,
@@ -87,11 +89,8 @@ ydl_opts = {
     "default_search": "ytsearch10"
 }
 
-
 ---
-
 👨‍💻 Author: Rohit Kumar Shrivastava
-
 BCA Student | Python Developer | UI & Music App Enthusiast
 
 🔗 LinkedIn:
@@ -100,17 +99,21 @@ https://www.linkedin.com/in/rohit-kumar-srivastava-39a74b372
 🔗 X (Twitter):
 https://x.com/itsrohit_tech?t=8Pzh0VeKL4d_ZVCQQuyODQ&s=09
 
-
 ---
 
-### Want me to also generate:
-✅ A cleaner **project description**  
-✅ A **requirements.txt**  
-✅ A **GitHub release summary**  
-✅ A better **repository structure**  
-?
+Need More?
+I can generate :
 
-Just dm me on  x , linkdinn , email !
+✅ Cleaner project description
+✅ requirements.txt file
+✅ GitHub release summary
+✅ Improved repo structure
+
+Just ping me on X, LinkedIn, or Email!
+
+If you want the **banner** to be clickable or want a **dark README theme**, I can update it too — just tell me!
+
+
 
 
 
