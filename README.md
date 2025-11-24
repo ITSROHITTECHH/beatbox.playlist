@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="banner.png" alt="Beatbox Banner" width="100%">
-</p>
 
 # 🎧 Beatbox — YouTube Music Player (Python + Tkinter + VLC + yt-dlp)
 
@@ -55,7 +52,7 @@ Loads your JSON playlist instantly for testing.
 ## 📸 Screenshots Preview
 
 ### 🎼 Default Playlist
-```md
+
 ![Default Playlist Preview](beatbox.playlist/default-playlist.png)
 
 
