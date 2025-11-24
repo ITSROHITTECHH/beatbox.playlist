@@ -53,7 +53,7 @@ Loads your JSON playlist instantly for testing.
 
 ### 🎼 Default Playlist
 
-![Default Playlist Preview](beatbox.playlist/default-playlist.png)
+(beatbox.playlist/default-playlist.png)
 
 
 ---
